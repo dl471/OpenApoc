@@ -76,7 +76,11 @@ void LocationScreen::begin()
 
 void LocationScreen::pause() {}
 
-void LocationScreen::resume() {}
+void LocationScreen::resume() 
+{
+	// Changes made in the VEquipScreen can potentially change the positions of the agents so update the list just in case
+	agentAssignment->updateLocation(); 
+}
 
 void LocationScreen::finish() {}
 

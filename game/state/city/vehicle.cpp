@@ -3471,6 +3471,24 @@ int Vehicle::getMaxPassengers() const
 
 int Vehicle::getPassengers() const { return (int)currentAgents.size(); }
 
+void Vehicle::enforcePassengerLimit(GameState &state) const
+{
+	int maxPassengers = this->getMaxPassengers();
+	int currentPassengers = this->getPassengers();
+
+	if (currentPassengers > maxPassengers) {
+		auto currentBuilding = this->currentBuilding;
+
+		while (currentPassengers > maxPassengers)
+		{
+			auto agentIterator = this->currentAgents.rbegin();
+			auto lastAgent = *agentIterator;
+			lastAgent->enterBuilding(state, currentBuilding);
+			currentPassengers--;
+		}
+	}
+}
+
 int Vehicle::getMaxCargo() const
 {
 	auto et = getEquipmentTypes();

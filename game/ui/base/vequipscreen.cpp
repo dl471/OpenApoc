@@ -294,6 +294,12 @@ void VEquipScreen::eventOccurred(Event *e)
 			equipment->unequipToBase(*state, base);
 			this->paperDoll->updateEquipment();
 
+			// If equipment being removed affects passenger capacity run a check on whether any agents just lost their seat
+			if (equipment->type->passengers > 0)
+			{
+				this->selected->enforcePassengerLimit(*state);
+			}
+
 			// Immediate action: put to the base
 			if ((modifierLShift || modifierRShift) &&
 			    config().getBool("OpenApoc.NewFeature.AdvancedInventoryControls"))

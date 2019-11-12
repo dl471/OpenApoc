@@ -329,6 +329,7 @@ class Vehicle : public StateObject,
 	int getFuel() const;
 	int getMaxPassengers() const;
 	int getPassengers() const;
+	void enforcePassengerLimit(GameState &state) const;
 	int getMaxCargo() const;
 	int getCargo() const;
 	int getMaxBio() const;
